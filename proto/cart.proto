@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package cart_package;
+
+// Define the Book message
+message Book {
+  string name = 1;
+  string rating = 2;
+  string desc = 3;
+  string author = 4;
+  string pages = 5;
+  string publicationDate = 6;
+  string image = 7;
+  float price = 8;
+  Offer offer = 9;
+  repeated string genres = 10;
+  int32 stock = 11;
+  int32 id = 12;
+}
+
+// Define the Offer message
+message Offer {
+  bool isOffer = 1;
+  float discount = 2;
+  float discountPrice = 3;
+}
+
+// Define the ProductCart message
+message ProductCart {
+  Book book = 1;
+  int32 quantity = 2;
+}
+
+// Define the Cart message
+message Cart {
+  string id = 1;
+  string userId = 2;
+  repeated ProductCart books_in_cart = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+// Define the service
+service CartService {
+  rpc GetCart (GetCartRequest) returns (Cart);
+  rpc GetAllCarts (Empty) returns (CartList); 
+  rpc AddProductToCart (AddProductRequest) returns (Cart); 
+  rpc DeleteProductFromCart (DeleteProductRequest) returns (Cart); 
+  rpc GetCartTotal (GetCartRequest) returns (CartTotalResponse); 
+  rpc CreateCart (CreateCartRequest) returns (Cart);
+  rpc DeleteCart (DeleteCartRequest) returns (DeleteCartResponse);
+}
+
+// Define the request message for the GetCart RPC
+message GetCartRequest {
+  string cartId = 1;
+}
+
+message Empty {}
+
+// Define an empty message for methods that don't require parameters
+message DeleteCartResponse {
+  string message = 1;
+}
+
+// Define a request message for adding a product to the cart
+message AddProductRequest {
+  string cartId = 1;
+  Book product = 2;
+}
+
+// Define a request message for deleting a product from the cart
+message DeleteProductRequest {
+  string cartId = 1;
+  Book product = 2;
+}
+
+// Define a response message for methods that return all carts
+message CartList {
+  repeated Cart carts = 1;
+}
+
+// Define a response message for methods that return the total of the cart
+message CartTotalResponse {
+  float total = 1;
+  float discountPrice = 2;
+}
+
+// Define a request message for creating a cart
+message CreateCartRequest {
+  string userId = 1;
+}
+
+// Define a request message for deleting a cart
+message DeleteCartRequest {
+  string cartId = 1;
+}

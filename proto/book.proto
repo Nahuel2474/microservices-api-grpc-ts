@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package book_package;
+
+message Book {
+  string name = 1;
+  string rating = 2;
+  string desc = 3;
+  string author = 4;
+  string pages = 5;
+  string publicationDate = 6;
+  string image = 7;
+  double price = 8;
+  Offer offer = 9;
+  repeated string genres = 10;
+  int32 stock = 11;
+}
+
+message Offer {
+  bool isOffer = 1;
+  double discount = 2;
+  double discountPrice = 3;
+}
+
+message BookList {
+  repeated Book books = 1;
+}
+
+service BookService {
+  rpc GetBook(GetBookRequest) returns (Book);
+  rpc GetBooks(GetBooksRequest) returns (BookList);
+}
+
+message GetBookRequest {
+  string bookId = 1;
+}
+
+message GetBooksRequest {}

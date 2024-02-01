@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../node_modules/@prisma/user"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("USER_POSTGRE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  avatar    String
+  birthday  DateTime
+  password  String
+  phone     String
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  sessionId String
+  addressId String
+  address   Address  @relation(fields: [addressId], references: [id])
+  session   Session  @relation(fields: [sessionId], references: [id])
+}
+
+model Address {
+  id      String @id @default(uuid())
+  street  String
+  number  String
+  city    String
+  state   String
+  zipCode String
+  users   User[]
+}
+
+model Session {
+  isLogged     Boolean
+  id           String  @id @default(uuid())
+  token        String?
+  refreshToken String?
+  User         User[]
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}

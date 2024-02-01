@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package user_package;
+
+message User {
+  string id = 1;
+  string name = 2;
+  string avatar = 3;
+  string email = 4;
+  string password = 5;
+  Address address = 6;
+  string phone = 7;
+  Role role = 8;
+  Session session = 9;
+  string createdAt = 10;
+  string updatedAt = 11;
+  string birthday = 12;
+}
+
+message Address {
+  string street = 1;
+  string number = 2;
+  string city = 3;
+  string state = 4;
+  string zipCode = 5;
+}
+
+enum Role {
+  ADMIN = 0;
+  CUSTOMER = 1;
+}
+
+message Session {
+  bool isLogged = 1;
+  string id = 2;
+  optional string token = 3;
+  optional string refreshToken = 4;
+}
+
+
+message UserList {
+  repeated User users = 1;
+}
+
+
+message Empty {}
+
+message GetUserRequest {
+  string userId = 1;
+}
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (User);
+  rpc GetAllUsers(Empty) returns (UserList);
+}
