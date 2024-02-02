@@ -14,15 +14,17 @@ An ecommerce API implementing microservices to handle users, products, carts. Th
 - PostgreSQL (cart and user)
 - Prisma
 
+This project was conceived with the goal of delving into the world of distributed microservices architectures and inter-service communication, with a specific focus on implementing gRPC (gRPC Remote Procedure Calls). The choice of gRPC as the central technology for communication among the various modules of the system was made with the intention of understanding synchronous communication between services for future developments.
+
+Throughout the project's development, my focus extended beyond the practical implementation of microservices. I delved into understanding and applying gRPC comprehensively. This protocol enabled me to define types (generated from protobuf files), comprehend the usage of protocols different from the commonly employed HTTP, and implement an efficient, type-safe communication structure for successful queries.
 
 
-Este proyecto fue concebido con el propósito de aprender sobre las arquitecturas distribuidas de micorservicios la comunicacion entre servicios , centrandome especificamente en la implementacion de gRPC (gRPC Remote Procedure Calls). La eleccion de gRPC como tecnologia central de comunicacion entre los diferentes modulos del sistema fue tomada con el proposito de aprender la comunucacion sincrona entre servicios en un futuro 
+![diagram flow]['./assets/flow-chart.png']
 
-Durante el desarrollo de este proyecto, mi enfoque no se limitó únicamente a la implementacion practica de los microservicios, sino que tambien abordé detenidamente la comprensión y aplicación de gRPC. Este protocolo, me permitio definir tipos (generados de los archivos protobuf) entender el uso de protocolos distintos a los usados comunmente (http) implementar una estructura de comunicacion eficaz y tipada de forma segura para la realizacion de consultas satisfactorias. 
 
-[insertar imagen del flujo de comunicacion. './assets/flow-chart.png' ]
+In the development of the API, I embraced object-oriented programming, leveraging TypeScript's features for an optimal development framework. I defined the HTTP routes of the gateway service using Express, allowing clients to request information through an HTTP call to the primary "gateway" service. Here, the query was analyzed to make necessary calls to other services using the gRPC-provided client. In essence, all operations passed through the gateway service, with underlying processes such as delivering a list of products, managing users, or creating and deleting carts handled by the necessary services.
 
-Durante el desarrollo de la API diseñe usando la programacion orientada a objetos, aprovechando las caracteristicas que me propporciona typescript para un marco de desarrollo optimo , definiendo las rutas http del servicio gateway con express por lo que el cliente podia solicitar informacion via una llamada http al servicio principal "gateway" donde este analizaba la consulta para  realizar las llamadas necesarias a los demas servicios por medio del cliente proporcionado por grpc. En si todas las operaciones pasaban por medio del servicio gateway los procesos subyacentes como la entrega de una lista de productos , usuarios o crear eliminar carritos, etc pasaba por los servicios necesarios.
+## Services Overview
 
 Cart Service : 
 
@@ -42,4 +44,13 @@ Product Service :
 
 - getProduct
 - getAllProducts
+
+
+## Instalation 
+
+```
+npm install
+```
+
+
 
